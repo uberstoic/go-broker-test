@@ -22,7 +22,7 @@ FROM alpine:latest
 WORKDIR /app
 
 # Install runtime dependencies
-RUN apk add --no-cache sqlite
+RUN apk add --no-cache sqlite curl
 
 # Copy the binary from builder
 COPY --from=builder /app/server .

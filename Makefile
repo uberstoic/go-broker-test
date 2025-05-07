@@ -1,4 +1,4 @@
-.PHONY: vet test run-server run-worker docker-up docker-down
+.PHONY: vet test run-server run-worker docker-up docker-down cover
 
 vet:
 	go vet ./...
@@ -13,7 +13,11 @@ run-worker:
 	go run ./cmd/worker
 
 docker-up:
-	docker-compose up --build --detach --wait
+	docker compose up --build --detach --wait
 
 docker-down:
-	docker-compose down
+	docker compose down --volumes
+
+cover:
+	go test ./... -coverprofile=coverage.out -covermode=atomic
+	go tool cover -func=coverage.out

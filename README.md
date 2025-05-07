@@ -61,23 +61,18 @@ if side == "sell" { profit = -profit }
 ### How to Run
 
 ```shell
-# Terminal 1
-go run ./cmd/server.go --db data.db --listen 8080
+make vet
+make test
+make docker-up
 
-# Terminal 2
-go run ./cmd/worker.go --db data.db --poll 100ms
-```
-
-Sample request:
-
-```
+# Sample requests (localhost:8080):
 curl -X POST http://localhost:8080/trades \
      -H 'Content-Type: application/json' \
-     -d '{"account":"123","symbol":"EURUSD","volume":1.0,
-          "open":1.1000,"close":1.1050,"side":"buy"}'
+     -d '{"account":"123","symbol":"EURUSD","volume":1.0,"open":1.1000,"close":1.1050,"side":"buy"}'
 
 curl http://localhost:8080/stats/123
-# {"account":"123","trades":1,"profit":500.0}
+
+make docker-down
 ```
 
 ## What We Expect from Your Code
